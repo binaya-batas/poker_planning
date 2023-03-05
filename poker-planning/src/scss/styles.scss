@@ -1,0 +1,15 @@
+@import './common-imports';
+
+
+//components
+@import './components/inputField.scss';
+@import './components/button.scss';
+
+//pages
+@import './pages/login.scss';
+
+* {
+    margin: 0;
+    padding: 0;
+}
+

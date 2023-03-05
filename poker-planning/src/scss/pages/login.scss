@@ -1,0 +1,65 @@
+.login {
+    // display: flex;
+    // justify-content: center;
+
+    &__image {
+        display: none;
+    }
+
+    input {
+        margin-bottom: 15px;
+    }
+
+    &__forgotPassword {
+        text-align: right;
+        margin-bottom: 40px;
+        line-height: 20px;
+        font-size: 15px;
+
+        a {
+            text-decoration: none;
+            @include links(black, black, green, blue);
+        }
+    }
+
+    &__right {
+        margin: 0 auto;
+        padding-top: 40px;
+        padding-inline: 20px;
+        max-width: 430px;
+
+        &__header {
+            display: flex;
+            margin-bottom: 60px;
+        }
+
+        &__welcome {
+            margin-bottom: 60px;
+
+            &__title {
+                font-weight: 800;
+                font-size: 36px;
+            }
+        }
+
+        &__form {
+            margin-top: 30px;
+        }
+    }
+
+    &__button {
+
+    }
+
+    &__dha {
+        text-align: center;
+        margin-top: 15px;
+
+        a {
+            // color: black;
+            font-weight: 500;
+            text-decoration: none;
+            @include links(black, black, green, blue);
+        }
+    }
+}

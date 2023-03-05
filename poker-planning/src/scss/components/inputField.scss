@@ -1,0 +1,20 @@
+.inputField {
+
+    input {
+        font-size: 20px;
+        font-weight: 400;
+        width: 100%;
+        max-width: 430px;
+        border: none;
+        border-bottom: 1px solid #E0E0E0;
+        padding-block: 11px;
+        line-height: 26px;
+        background-color: none;
+    
+        &::placeholder {
+            color: black;
+            font-size: 20px;
+            font-weight: 400;
+        }
+    }
+}

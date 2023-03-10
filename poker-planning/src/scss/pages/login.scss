@@ -1,13 +1,43 @@
 .login {
-    // display: flex;
-    // justify-content: center;
+    overflow: hidden;
+    height: 100vh;
+    
+    @include respond-to(desktop) {
+        display: flex;
+    }
 
     &__image {
         display: none;
+        
+        @include respond-to(desktop) {
+            display: block;
+        }
+        
+        figure {
+            height: 100%;
+            @include position(relative);
+
+            img {
+                width: 100%;
+                max-width: 800px;
+                height: auto;
+                object-fit: cover;
+            }
+
+            figcaption {
+                font-size: 40px;
+                font-weight: 800;
+                line-height: 57px;
+                color: white;
+                @include position(absolute, $left: 80px, $right: 80px, $bottom: 106px);
+            }
+        }
     }
 
     input {
         margin-bottom: 15px;
+
+        
     }
 
     &__forgotPassword {
@@ -28,6 +58,10 @@
         padding-inline: 20px;
         max-width: 430px;
 
+        @include respond-to-above(tablet) {
+            padding-top: 80px;
+        }
+
         &__header {
             display: flex;
             margin-bottom: 60px;
@@ -43,6 +77,7 @@
         }
 
         &__form {
+            min-width: 390px;
             margin-top: 30px;
         }
     }

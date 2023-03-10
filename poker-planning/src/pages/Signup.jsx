@@ -5,11 +5,12 @@ import InputField from "../components/InputField";
 import Button from "../components/Button";
 import loginImage from "../assets/images/login-image.png";
 
-const Login = () => {
+const Signup = () => {
   const [showPassword, setShowPassword] = useState(true);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
+    confirmPassword: "",
   });
 
   const onChangeInput = (e) => {
@@ -28,7 +29,9 @@ const Login = () => {
       return;
     }
 
-    console.log(formData);
+    if (formData.password === formData.confirmPassword) {
+      console.log(formData);
+    }
   }
 
   return (
@@ -57,12 +60,14 @@ const Login = () => {
           <InputField type="email" placeholder="Email" name="email" onChange={onChangeInput} />
 
           <InputField type={`${showPassword ? 'password': 'text'}`} placeholder="Password" name="password" onChange={onChangeInput} />
+          
+          <InputField type={`${showPassword ? 'password': 'text'}`} placeholder="Confirm Password" name="confirmPassword" onChange={onChangeInput} />
+
 
           <div className="login__forgotPassword">
-            <a href="">Forgot Password</a>
           </div>
 
-          <Button text="Log In" onClick={handleClick} />
+          <Button text="Sign Up" onClick={handleClick} />
 
           <div className="login__dha">
             <span style={{ marginRight: "8px" }}>Don't have an account?</span>
@@ -76,4 +81,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;

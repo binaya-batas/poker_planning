@@ -1,0 +1,19 @@
+.card {
+    border: 3px solid black;
+    border-radius: 6px;
+    width: fit-content;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease-in-out;
+
+    &__number {
+        font-size: 32px;
+    }
+
+    &:hover {
+        scale: 1.1;
+    }
+
+}

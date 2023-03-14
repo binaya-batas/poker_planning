@@ -1,0 +1,17 @@
+.inputFieldWithBorder {
+  display: flex;
+  flex-direction: column;
+  
+  label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  input[type="text"] {
+    padding: 10px;
+    font-size: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+}
+

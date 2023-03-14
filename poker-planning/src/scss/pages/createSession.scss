@@ -1,0 +1,59 @@
+.session {
+    margin: 0 auto;
+    max-width: 900px;
+
+    @include respond-to-above(tablet) {
+        border: 1px solid black;
+    }
+
+    &__heading {
+        text-align: left;
+        background-color: silver;
+        margin-bottom: 15px;
+        padding: 10px 0px 10px 5px;
+    }
+
+    
+    &__form {
+
+        @include respond-to-above(tablet) {
+            padding: 20px;
+        }
+
+        &__storypoint {
+            margin-top: 15px;
+
+            &__inputfields {
+                border-radius: 6px;
+                border: 1px solid black;
+                display: flex;
+                flex-direction: column;
+                padding: 10px;
+                margin-bottom: 10px;
+                
+                .inputFieldWithBorder {
+
+                    @include respond-to-above(tablet) {
+                        width: 50%;
+                    }
+                }
+
+                input {
+                    margin-bottom: 15px;
+
+                    @include respond-to-above(tablet) {
+                        margin-right: 15px;
+                    }
+                }
+                
+                @include respond-to-above(tablet) {
+                    flex-direction: row;
+                }
+            }
+        }
+
+        &__submit {
+            text-align: center;
+        }
+    }
+}

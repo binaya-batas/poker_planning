@@ -1,0 +1,43 @@
+.dashboard {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(1, 1fr);
+
+    @include respond-to-above(desktop) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    &__vote {
+        @include respond-to-above(desktop) {
+            grid-column: 2/4;
+        }
+
+        &__title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgb(205, 203, 203);
+            padding: 10px 5px;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        } 
+    }
+
+    &__storypoints {
+
+        @include respond-to-above(desktop) {
+            grid-column: 2/4;
+        }
+
+        &__title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgb(205, 203, 203);
+            padding: 10px 5px;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+    }
+}

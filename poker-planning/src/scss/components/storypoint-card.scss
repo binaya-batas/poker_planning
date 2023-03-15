@@ -1,13 +1,22 @@
 .card {
+    cursor: pointer;
+    padding: 10px;
     border: 3px solid black;
     border-radius: 6px;
     width: fit-content;
-    padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: all 0.2s ease-in-out;
+    
+    @include respond-to(phone) {
+        min-width: 95px;
+    }
 
+    @include respond-to-above(tablet) {
+        min-width: 105px;
+    }
+    
     &__number {
         font-size: 32px;
     }

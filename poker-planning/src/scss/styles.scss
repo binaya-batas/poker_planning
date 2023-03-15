@@ -4,10 +4,18 @@
 //components
 @import './components/inputField.scss';
 @import './components/button.scss';
+@import './components/storypoint-card.scss';
+@import './components/inputFieldWithBorder.scss';
+@import './components/members.scss';
+@import './components/memeber-list.scss';
+@import './components/button-action.scss';
+@import './components/storypoint-list.scss';
 
 //pages
 @import './pages/login.scss';
 @import './pages/signup.scss';
+@import './pages/create-session.scss';
+@import './pages/dashboard.scss';
 
 * {
     margin: 0;
@@ -15,3 +23,12 @@
     box-sizing: border-box;
 }
 
+body {
+    font-family: 'Manrope', sans-serif;
+}
+
+.container {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 40px;
+}

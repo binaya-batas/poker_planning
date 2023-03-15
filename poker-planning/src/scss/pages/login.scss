@@ -77,8 +77,11 @@
         }
 
         &__form {
-            min-width: 390px;
             margin-top: 30px;
+            
+            @include respond-to-above(tablet) {
+                min-width: 390px;
+            }
         }
     }
 

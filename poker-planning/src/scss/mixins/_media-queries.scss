@@ -16,6 +16,12 @@
             @content;
         }
     }
+
+    @if $breakpoint == desktop {
+        @media (min-width: 1100px) {
+            @content;
+        }
+    }
 }
 
 @mixin respond-to($breakpoint) {

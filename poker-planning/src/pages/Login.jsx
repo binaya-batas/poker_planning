@@ -5,11 +5,16 @@ import InputField from "../components/InputField";
 import Button from "../components/Button";
 import loginImage from "../assets/images/login-image.png";
 
+import useUsers from '../hooks/useUsers';
+
 const Login = () => {
+  const { loginUser } = useUsers(); 
+
   const [showPassword, setShowPassword] = useState(true);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
+    submit_login: 'submit_login'
   });
 
   const onChangeInput = (e) => {
@@ -19,14 +24,15 @@ const Login = () => {
     });
   };
 
-  const handleClick = (e) => {
+  const handleLoginClick = (e) => {
     e.preventDefault();
 
-    if(formData.email == '' || formData.password == '') 
-    {
-      console.log("error");
+    if(!Object.values(formData).every(val => val.trim() !== '')){
+      console.log('Please Fill in all Required Fields!');
       return;
     }
+
+    loginUser(formData);
 
     console.log(formData);
   }
@@ -35,7 +41,7 @@ const Login = () => {
     <div className="login">
       <div className="login__image">
         <figure>
-          <img src={loginImage} alt="image with small pieces of paper" srcset="" />
+          <img src={loginImage} alt="image with small pieces of paper" />
           <figcaption>Join the Fun and Estimation Frenzy with Planning Poker Game!</figcaption>
         </figure>
       </div>
@@ -62,7 +68,7 @@ const Login = () => {
             <a href="">Forgot Password</a>
           </div>
 
-          <Button text="Log In" onClick={handleClick} />
+          <Button text="Log In" type="submit" name="submit_login" onClick={handleLoginClick} />
 
           <div className="login__dha">
             <span style={{ marginRight: "8px" }}>Don't have an account?</span>

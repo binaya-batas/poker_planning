@@ -15,7 +15,7 @@ const useUsers = () => {
         })
         .then((response) => {
           console.log(response.data.data);
-          sessionStorage.setItem("moderator", JSON.stringify(response.data.data));
+          sessionStorage.setItem("user", JSON.stringify(response.data.data));
         })
         .catch((error) => {
           console.log(error);

@@ -1,19 +1,31 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const useSession = () => {
-
+  const [members, setMembers] = useState();
   const navigate = useNavigate();
 
-  const getSession = async ({ id }) => {
+  // const getSession = async ({ id }) => {
+  //   try {
+  //     axios.get(`http://localhost:8888/api/session/${id}`)
+  //       .then((response) => console.log(response))
+  //       .catch((error) => console.log(error));
+  //   } catch (error) {
+
+  //   }
+  // }
+
+  const getSessionMembers = async(id) => {
     try {
-      axios.get(`http://localhost:8888/api/session/${id}`)
-        .then((response) => console.log(response))
+      await axios.get(`http://localhost:8888/api/session/${id}`)
+        .then((response) => {
+          setMembers(response.data);
+        })
         .catch((error) => console.log(error));
     } catch (error) {
-
+        console.log(error);
     }
   }
 
@@ -45,15 +57,19 @@ const useSession = () => {
     let action = 'joinSession';
     let member = JSON.parse(sessionStorage.getItem("user"));
 
+    console.log(sessionId);
+
     try {
       await axios
         .post("http://localhost:8888/api/session", {
           sessionId: sessionId,
-          member: member.id,
+          memberId: member.id,
           action: action
         })
         .then((response) => {
-          navigate(`/session/${sessionId}`)
+          if(response.data.id) {
+            navigate(`/session/${sessionId}`)
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -63,7 +79,7 @@ const useSession = () => {
     }
   }
 
-  return { createSession, joinSession };
+  return { createSession, joinSession, getSessionMembers, members };
 }
 
 export default useSession

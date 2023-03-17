@@ -4,7 +4,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const useSession = () => {
-  const [members, setMembers] = useState();
+  const [members, setMembers] = useState([]);
+  const [stories, setStories] = useState([]);
   const navigate = useNavigate();
 
   // const getSession = async ({ id }) => {
@@ -19,9 +20,22 @@ const useSession = () => {
 
   const getSessionMembers = async(id) => {
     try {
-      await axios.get(`http://localhost:8888/api/session/${id}`)
+      await axios.get(`http://localhost:8888/api/members/${id}`)
         .then((response) => {
           setMembers(response.data);
+        })
+        .catch((error) => console.log(error));
+    } catch (error) {
+        console.log(error);
+    }
+  }
+
+  const getSessionUserStories = async(id) => {
+    try {
+      await axios.get(`http://localhost:8888/api/stories/${id}`)
+        .then((response) => {
+          console.log(response.data);
+          setStories(response.data);
         })
         .catch((error) => console.log(error));
     } catch (error) {
@@ -79,7 +93,31 @@ const useSession = () => {
     }
   }
 
-  return { createSession, joinSession, getSessionMembers, members };
+
+  //creates stories for a particular session
+  const createSessionStoryPoints = async (inputFields, id) => {
+    let action = 'createNewStoryPoint';
+    console.log(inputFields);
+    
+    try {
+      await axios.post(`http://localhost:8888/api/session/${id}`, 
+      {
+        sessionId: id,
+        storyTitle: inputFields.storyTitle,
+        storyDescription: inputFields.storyDescription,
+        status: 'PENDING',
+        action: action
+      })
+        .then((response) => {
+            console.log(response.data);
+        })
+        .catch((error) => console.log(error));
+    } catch (error) {
+        console.log(error);
+    }
+  }
+
+  return { createSession, joinSession, getSessionMembers, createSessionStoryPoints, getSessionUserStories, members, stories };
 }
 
 export default useSession

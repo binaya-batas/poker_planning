@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import shortid from "shortid";
 
 import Button from "../components/Button";
 import ButtonAction from "../components/ButtonAction";
@@ -12,6 +11,8 @@ const CreateSession = () => {
     const [sessionName, setSessionName] = useState('')
     const [sessionLink, setSessionLink] = useState('')
 
+    const { createSession, joinSession } = useSession();
+    
     const onChangeSessionName = (event) => {
         setSessionName(event.target.value);
     }
@@ -20,12 +21,9 @@ const CreateSession = () => {
         setSessionLink(event.target.value);
     }
 
-    const { createSession, joinSession } = useSession();
-
     const handleCreateSession = (event) => {
         event.preventDefault();
-        console.log(sessionName);
-        // createSession(sessionName);
+        createSession(sessionName);
     }
 
     const handleCreateSessionLink = (event) => {
@@ -55,7 +53,7 @@ const CreateSession = () => {
 
                     <InputFieldWithBorder
                         type="text"
-                        placeholder="Join an existing session"
+                        placeholder="Paste your invitation link here"
                         name="sessionLink"
                         value={sessionLink}
                         onChange={onChangeSessionLink}

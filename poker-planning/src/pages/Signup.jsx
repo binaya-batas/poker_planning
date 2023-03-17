@@ -26,7 +26,7 @@ const Signup = () => {
     });
   };
 
-  const handleSubmitForm = (e) => {
+  const handleSubmitForm = async (e) => {
     console.log("dddd");
     e.preventDefault();
 
@@ -37,7 +37,14 @@ const Signup = () => {
     }
 
     if (formData.password === formData.confirmPassword) {
-      registerUser(formData);
+      let data = await registerUser(formData);
+
+      if (data.success) {
+        console.log("User registered.")
+      }
+      else if(!data.success) {
+        console.log("User cannot be registered.")
+      }
     }
   }
 

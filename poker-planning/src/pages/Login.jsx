@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import InputField from "../components/InputField";
 import Button from "../components/Button";
@@ -8,7 +9,8 @@ import loginImage from "../assets/images/login-image.png";
 import useUsers from '../hooks/useUsers';
 
 const Login = () => {
-  const { loginUser } = useUsers(); 
+  const { loginUser } = useUsers();
+  const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(true);
   const [formData, setFormData] = useState({
@@ -24,7 +26,7 @@ const Login = () => {
     });
   };
 
-  const handleLoginClick = (e) => {
+  const handleLoginClick = async (e) => {
     e.preventDefault();
 
     if(!Object.values(formData).every(val => val.trim() !== '')){
@@ -32,9 +34,16 @@ const Login = () => {
       return;
     }
 
-    loginUser(formData);
+    let data = await loginUser(formData);
 
-    console.log(formData);
+    if(data.success){
+      console.log(data.message);
+      sessionStorage.setItem("user", JSON.stringify(data.message));
+      navigate('/session');
+    }
+    else if(!data.success){
+        console.log(data.message);
+    }
   }
 
   return (

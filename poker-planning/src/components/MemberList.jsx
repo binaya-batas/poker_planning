@@ -18,7 +18,7 @@ const MemberList = ({ members }) => {
                 <div className='' onClick={handleClickHeading}>{showMembers ? '-' : '+'} </div>
             </div>
             {showMembers &&
-                members.map((member, index) => (
+                 members?.map((member, index) => (
                     <Member key={`${member.name}${index}`} name={member.name} />
                 ))
             }

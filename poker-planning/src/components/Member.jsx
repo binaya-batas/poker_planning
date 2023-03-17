@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Member = ({ name, role }) => {
+const Member = ({ name }) => {
   return (
     <div className='member'>
-        {`${name} (${role})`}
+        {`${name}`}
     </div>
   )
 }

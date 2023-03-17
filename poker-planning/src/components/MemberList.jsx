@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import ButtonAction from './ButtonAction';
 
 import Member from './Member';
+
 
 const MemberList = ({ members }) => {
     const [showMembers, setShowMembers] = useState(false)
@@ -17,8 +18,8 @@ const MemberList = ({ members }) => {
                 <div className='' onClick={handleClickHeading}>{showMembers ? '-' : '+'} </div>
             </div>
             {showMembers &&
-                members.map(member => (
-                    <Member name={member.name} role={member.role} />
+                members.map((member, index) => (
+                    <Member key={`${member.name}${index}`} name={member.name} />
                 ))
             }
         </div>

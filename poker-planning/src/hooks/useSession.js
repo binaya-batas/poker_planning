@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -6,17 +8,92 @@ import { useNavigate } from 'react-router-dom';
 const useSession = () => {
   const [members, setMembers] = useState([]);
   const [stories, setStories] = useState([]);
+  const [history, setHistory] = useState([]);
+  const [currentStory, setCurrentStory] = useState();
   const navigate = useNavigate();
 
-  // const getSession = async ({ id }) => {
-  //   try {
-  //     axios.get(`http://localhost:8888/api/session/${id}`)
-  //       .then((response) => console.log(response))
-  //       .catch((error) => console.log(error));
-  //   } catch (error) {
+  const updateStoryStatus = async (id, status) => {
+    try {
+      axios.patch(`http://localhost:8888/api/stories/${id}`,
+      {
+        "status": status
+      })
+        .then((response) => {
+          console.log(response.data)
+        })
+        .catch((error) => console.log(error));
+    } catch (error) {
+        console.log(error)
+    }
+  }
 
-  //   }
-  // }
+  const getStoryByActiveStatus = async (sessionId) => {
+    try {
+      axios.post(`http://localhost:8888/api/stories`,
+      {
+        status: "PENDING",
+        sessionId: sessionId,
+        action: 'getActiveUserStory'
+      })
+        .then((response) => {
+          setCurrentStory(response.data.user)
+        })
+        .catch((error) => console.log(error));
+    } catch (error) {
+        console.log(error)
+    }
+  }
+
+  const getSessionHistory = (moderator) => {
+    try {
+      axios.post(`http://localhost:8888/api/session`,
+      {
+        moderator: moderator,
+        action: 'getSessionHistory'
+      })
+        .then((response) => {
+          setHistory(response.data.history);
+        })
+        .catch((error) => console.log(error));
+    } catch (error) {
+        console.log(error)
+    }
+  }
+
+  const deleteStory = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8888/api/stories/${id}`)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => console.log(error));
+    } catch (error) {
+        console.log(error);
+    }
+  }
+  
+  //creates stories for a particular session
+  const createSessionStoryPoints = async (inputFields, id) => {
+    let action = 'createNewStoryPoint';
+    console.log(inputFields);
+    
+    try {
+      await axios.post(`http://localhost:8888/api/stories/${id}`, 
+      {
+        sessionId: id,
+        storyTitle: inputFields.storyTitle,
+        storyDescription: inputFields.storyDescription,
+        status: 'ONQUEUE',
+        action: action
+      })
+        .then((response) => {
+            console.log(response.data);
+        })
+        .catch((error) => console.log(error));
+    } catch (error) {
+        console.log(error);
+    }
+  }
 
   const getSessionMembers = async(id) => {
     try {
@@ -30,11 +107,11 @@ const useSession = () => {
     }
   }
 
+
   const getSessionUserStories = async(id) => {
     try {
-      await axios.get(`http://localhost:8888/api/stories/${id}`)
+      await axios.get(`http://localhost:8888/api/session/${id}`)
         .then((response) => {
-          console.log(response.data);
           setStories(response.data);
         })
         .catch((error) => console.log(error));
@@ -50,13 +127,23 @@ const useSession = () => {
     try {
       await axios
         .post("http://localhost:8888/api/session", {
-          sessionName: sessionName,
+          name: sessionName,
           moderator: moderator.id,
           action: action
         })
         .then((response) => {
           if (response.data.id) {
             navigate(`/session/${response.data.id}`)
+            toast.success('Session created successfully.', {
+              position: "top-right",
+              autoClose: 1000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+              });
           }
         })
         .catch((error) => {
@@ -71,8 +158,6 @@ const useSession = () => {
     let action = 'joinSession';
     let member = JSON.parse(sessionStorage.getItem("user"));
 
-    console.log(sessionId);
-
     try {
       await axios
         .post("http://localhost:8888/api/session", {
@@ -81,7 +166,7 @@ const useSession = () => {
           action: action
         })
         .then((response) => {
-          if(response.data.id) {
+          if(response.data.success) {
             navigate(`/session/${sessionId}`)
           }
         })
@@ -93,31 +178,31 @@ const useSession = () => {
     }
   }
 
-
-  //creates stories for a particular session
-  const createSessionStoryPoints = async (inputFields, id) => {
-    let action = 'createNewStoryPoint';
-    console.log(inputFields);
-    
+  const endSession = async (sessionId) => {
     try {
-      await axios.post(`http://localhost:8888/api/session/${id}`, 
-      {
-        sessionId: id,
-        storyTitle: inputFields.storyTitle,
-        storyDescription: inputFields.storyDescription,
-        status: 'PENDING',
-        action: action
-      })
-        .then((response) => {
-            console.log(response.data);
-        })
-        .catch((error) => console.log(error));
-    } catch (error) {
-        console.log(error);
+      await axios.patch(`http://localhost:8888/api/session/${sessionId}`)
+    } catch(error) {
+      console.log(error);
     }
   }
 
-  return { createSession, joinSession, getSessionMembers, createSessionStoryPoints, getSessionUserStories, members, stories };
+
+  return {
+    endSession,
+    getStoryByActiveStatus, 
+    createSession,
+    getSessionHistory, 
+    joinSession, 
+    getSessionMembers, 
+    createSessionStoryPoints, 
+    getSessionUserStories,
+    deleteStory,
+    updateStoryStatus, 
+    members, 
+    stories,
+    currentStory,
+    history 
+  };
 }
 
 export default useSession

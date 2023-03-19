@@ -33,7 +33,7 @@ const AddStoryPoints = ({ id }) => {
     }
 
     return (
-        <div className="session__form__storypoint">
+        <section className="session__form__storypoint">
             <div className="session__form__storypoint__heading">Stories</div>
                 <div
                     className="session__form__storypoint__inputfields"
@@ -57,7 +57,7 @@ const AddStoryPoints = ({ id }) => {
             <div className="session__form__submit">
                 <Button text="Add Story Points" onClick={handleAddStoryPoints} />
             </div>
-        </div>
+        </section>
     )
 }
 

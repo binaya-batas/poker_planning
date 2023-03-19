@@ -1,0 +1,27 @@
+.table {
+    width: 100%;
+    border-collapse: collapse;
+  
+    &__header-name,
+    &__header-story,
+    &__header-points {
+      font-weight: bold;
+      text-align: left;
+      padding: 8px;
+      border-bottom: 2px solid #ccc;
+    }
+  
+    &__cell-name,
+    &__cell-story,
+    &__cell-points {
+      text-align: left;
+      padding: 8px;
+      border-bottom: 1px solid #ccc;
+    }
+  
+    &__cell-name {
+      font-weight: bold;
+    }
+  }
+
+  

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 import InputField from "../components/InputField";
 import Button from "../components/Button";
@@ -29,20 +31,48 @@ const Login = () => {
   const handleLoginClick = async (e) => {
     e.preventDefault();
 
-    if(!Object.values(formData).every(val => val.trim() !== '')){
-      console.log('Please Fill in all Required Fields!');
+    if (!Object.values(formData).every((val) => val.trim() !== "")) {
+      toast.warning("Please fill all the required fields.", {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
       return;
     }
 
     let data = await loginUser(formData);
 
     if(data.success){
-      console.log(data.message);
+      sessionStorage.setItem("loggedIn", true);
       sessionStorage.setItem("user", JSON.stringify(data.message));
+      toast.success('User logged in succesfully.', {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
       navigate('/session');
     }
     else if(!data.success){
-        console.log(data.message);
+      toast.error('Unable to login. Please try again!', {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
     }
   }
 
@@ -57,9 +87,6 @@ const Login = () => {
 
       <div className="login__right">
         <div className="login__right__header">
-          <div className="">
-            <i>*</i>
-          </div>
           <div className="">Planning Poker</div>
         </div>
 

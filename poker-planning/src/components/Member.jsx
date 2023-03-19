@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Member = ({ name }) => {
+const Member = ({ name}) => {
   return (
     <div className='member'>
         {`${name}`}
